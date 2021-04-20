@@ -56,7 +56,7 @@ function getCartList(){
                 <td>${item.quantity}</td>
                 <td>NT$${item.product.price * item.quantity}</td>
                 <td class="discardBtn">
-                    <a href="#" class="material-icons">
+                    <a href="#" class="material-icons" data-id="${item.id}">
                         clear
                     </a>
                 </td>
@@ -120,7 +120,7 @@ productList.addEventListener("click", function(e){
     }).then(function (response) {
         console.log(response);
         alert("加入購物車成功")
-        getCartList();
+        getCartList()
 
     })
         .catch(function (error) {
@@ -129,3 +129,21 @@ productList.addEventListener("click", function(e){
 
 })
 
+cartList.addEventListener("click", function(e){
+    e.preventDefault();
+    const cartId = e.target.getAttribute("data-id");
+    console.log(cartId)
+    if(cartId == null){
+        return;
+    }   
+    axios.delete(`https://hexschoollivejs.herokuapp.com/api/livejs/v1/customer/${api_path}/carts/${cartId}`)
+    .then(function (response) {
+        console.log(response);
+        alert("刪除成功")
+        getCartList()
+
+    })
+        .catch(function (error) {
+        console.log(error);
+    })
+})
