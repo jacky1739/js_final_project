@@ -147,3 +147,18 @@ cartList.addEventListener("click", function(e){
         console.log(error);
     })
 })
+
+discardAllBtn.addEventListener("click", function(e){
+    console.log(e.target)
+    e.preventDefault();
+    axios.delete(`https://hexschoollivejs.herokuapp.com/api/livejs/v1/customer/${api_path}/carts`)
+    .then(function (response) {
+        console.log(response);
+        alert("刪除成功")
+        getCartList()
+
+    })
+        .catch(function (error) {
+        console.log(error);
+    })
+})
