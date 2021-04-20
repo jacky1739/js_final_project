@@ -163,3 +163,45 @@ discardAllBtn.addEventListener("click", function(e){
         console.log(error);
     })
 })
+
+orderInfo.addEventListener("click", function(e){
+    e.preventDefault();
+    console.log("你被點擊了")
+    if(cartData.length == 0){
+        alert("請加入購物車")
+        return
+    }
+    const customerName = document.querySelector("#customerName").value;
+    const customerPhone = document.querySelector("#customerPhone").value;
+    const customerEmail = document.querySelector("#customerEmail").value;
+    const customerAddress = document.querySelector("#customerAddress").value;
+    const customerTradeWay = document.querySelector("#tradeWay").value;
+    console.log(customerName, customerPhone, customerEmail, customerAddress, customerTradeWay)
+    if(customerName =="" || customerPhone =="" || customerEmail =="" || customerAddress ==""){
+        alert("請輸入訂單資訊");
+        return;
+    }
+    axios.post(`https://hexschoollivejs.herokuapp.com/api/livejs/v1/customer/${api_path}/orders`,{
+        "data": {
+            "user": {
+                "name": customerName,
+                "tel": customerPhone,
+                "email": customerEmail,
+                "address": customerAddress,
+                "payment": customerTradeWay
+            }
+        }
+    }).then(function (response) {
+        console.log(response);
+        alert("訂單建立成功")
+        document.querySelector("#customerName").value = "";
+        document.querySelector("#customerPhone").value = "";
+        document.querySelector("#customerEmail").value = "";
+        document.querySelector("#customerAddress").value = "";
+        document.querySelector("#tradeWay").value = "ATM";
+        getCartList();
+    })
+        .catch(function (error) {
+        console.log(error);
+    })
+})
