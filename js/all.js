@@ -40,7 +40,8 @@ function renderProducts() {
 function getCartList(){
     axios.get(`https://hexschoollivejs.herokuapp.com/api/livejs/v1/customer/${api_path}/carts`)
         .then(function (response) {
-        console.log(response.data.carts)
+        console.log(response.data)
+        cartListTotal.textContent = response.data.finalTotal;
         cartData = response.data.carts;
         let str = "";
         cartData.forEach(function(item){
@@ -154,7 +155,7 @@ discardAllBtn.addEventListener("click", function(e){
     axios.delete(`https://hexschoollivejs.herokuapp.com/api/livejs/v1/customer/${api_path}/carts`)
     .then(function (response) {
         console.log(response);
-        alert("刪除成功")
+        alert("購物車全部刪除成功")
         getCartList()
 
     })
