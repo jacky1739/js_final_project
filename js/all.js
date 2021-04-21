@@ -72,13 +72,42 @@ function getCartList(){
 }
 
 
+// productSelect.addEventListener("change", function(e){
+//     console.log(e.target.value);
+//     if(e.target.value == "全部"){
+//         renderProducts();
+//     }
+//     let str = "";
+//     productData.forEach(function(item){
+//         if(item.category == e.target.value){
+//             str += `
+//                 <li class="productCard">
+//                     <h4 class="productType">新品</h4>
+//                     <img src="${item.images}" alt="">
+//                     <a href="#" id="addCardBtn" class="js-addCart" data-id="${item.id}">加入購物車</a>
+//                     <h3>${item.title}</h3>
+//                     <del class="originPrice">NT${item.origin_price}</del>
+//                     <p class="nowPrice">NT${item.price}</p>
+//                 </li>`
+//         }
+//     })
+//     productList.innerHTML = str;
+// })
+
+
 productSelect.addEventListener("change", function(e){
-    console.log(e.target.value);
-    if(e.target.value == "全部"){
-        renderProducts();
-    }
     let str = "";
-    productData.forEach(function(item){
+    let newData = productData.filter(function(item){
+        console.log(item)
+        if(e.target.value === item.category){
+            return item
+        }
+        if(!e.target.value){
+            return item
+        }
+    })
+    console.log(newData)
+    newData.forEach(function(item){
         if(item.category == e.target.value){
             str += `
                 <li class="productCard">
